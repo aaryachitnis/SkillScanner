@@ -23,24 +23,48 @@ const CONNECTION_URL = 'mongodb+srv://aaryachitnis:phoenix14@cluster0.yphr5ln.mo
 mongoose.set('strictQuery', true);
 // useNewUrlParser and useUnifiedTopology makes sure there's no warnings when you run the program
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-// creates a new document and stores the data in UserInfo
 const User = mongoose.model('UserInfo');
+
+//REGISTRATION
+
+function hasUppercase(password) {
+    return /[A-Z]/.test(password);
+}
+
+function hasNumber(password) {
+    return /\d/.test(password);
+}
+
+function hasSpecialChar (password) {
+    var specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return (specialChars.test(password) );
+}
+
+function passwordValidation (password){
+    if ((password.length > 10) 
+    && (hasUppercase(password)==true) 
+    && (hasNumber(password)==true) 
+    && (hasSpecialChar(password)==true)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // adds email and password to the database in UserInfo
 app.post("/register", async(req, res) => {
     const {email, password } = req.body;
-    try{
-        await User.create({
-            email,
-            password,
-        }); 
-        res.send({status:"ok"})
-    }catch(error) {
-        res.send({status:"error"})
+    if (passwordValidation(password) == true ){
+        try{
+            await User.create({
+                email, password,
+            }); 
+            res.send({status:"valid"})
+        }catch(error) {
+            res.send({status:"error"})
+        }
+    } else {
+        return res.json({error: "invalid"});
     }
 });
-
-
-
-
 

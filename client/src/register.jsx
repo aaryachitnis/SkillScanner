@@ -1,5 +1,6 @@
 import React  from 'react';
 
+
 export default class Register extends React.Component{
   constructor(props){
     super(props);
@@ -33,7 +34,7 @@ export default class Register extends React.Component{
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userRegister");
+        console.log(data);
       })
     } 
     catch (err){
@@ -51,7 +52,7 @@ export default class Register extends React.Component{
             onChange={(e) => this.setState({ email: e.target.value })}
             />
             <label htmlFor="password">Password</label>
-            <input type="password" placeholder="Enter password" id="password" required
+            <input  placeholder="Enter password" id="password" required
             // updates state of password
             onChange={(e) => this.setState({ password: e.target.value })}
             />
@@ -61,3 +62,6 @@ export default class Register extends React.Component{
       );
     }
 }
+
+
+
