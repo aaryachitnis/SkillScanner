@@ -40,6 +40,7 @@ function hasSpecialChar (password) {
     return (specialChars.test(password) );
 }
 
+// password validation
 function passwordValidation (password, confirmPassword){
     if ((password.length > 10) 
     && (hasUppercase(password)==true) 
@@ -52,20 +53,22 @@ function passwordValidation (password, confirmPassword){
     }
 }
 
-// gmail.com    yahoo.com   hotmail.com
+// email validation
 function emailValidation (email){
     const gmail = '@gmail.com';
     const yahoo = "@yahoo.com";
     const hotmail = "@hotmail.com"
     if (((email.includes(gmail))== true) || ((email.includes(yahoo))== true) || ((email.includes(hotmail))== true) ) {
         return true;
+    } else {
+        return false;
     }
 }
 
 // adds email and password to the database in UserInfo
 app.post("/register", async(req, res) => {
     const {email, password, confirmPassword } = req.body;
-    if (passwordValidation(password, confirmPassword) == true && emailValidation (email) ==true ){
+    if ((passwordValidation(password, confirmPassword) == true) && (emailValidation (email) ==true )){
         try{
             await User.create({
                 email, password,
@@ -79,3 +82,5 @@ app.post("/register", async(req, res) => {
     }
 });
 
+
+// subroutine to check if an email already exists in the database - also used for login 
