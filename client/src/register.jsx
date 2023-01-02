@@ -1,5 +1,6 @@
 import React  from 'react';
-import registrationError from './registrationError';
+import { Routes, Route } from "react-router-dom";
+import Homepage from './homepage'
 
 export default class Register extends React.Component{
   constructor(props){
@@ -36,7 +37,6 @@ export default class Register extends React.Component{
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        registrationError();
       })
     } 
     catch (err){
@@ -57,28 +57,28 @@ export default class Register extends React.Component{
 
           <form onSubmit={this.handleSubmit}>
             <p>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email  </label>
             <input type="email" placeholder="Enter email" id="email" required
             // updates state of email 
             onChange={(e) => this.setState({ email: e.target.value })}
             />
             </p>
             <p>
-            <label htmlFor="password">Password</label>
-            <input  placeholder="Enter password" id="password" required
+            <label htmlFor="password">Password  </label>
+            <input type="password" placeholder="Enter password" id="password" required
             // updates state of password
             onChange={(e) => this.setState({ password: e.target.value })}
             />
             </p>
             <p>
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <input  placeholder="Confirm password" id="confirmPassword" required
+            <label htmlFor="confirmPassword">Confirm password  </label>
+            <input type="password" placeholder="Re-enter password" id="confirmPassword" required
             // updates state of password
             onChange={(e) => this.setState({ confirmPassword: e.target.value })}
             />
             </p>
             <button>Register</button>
-          </form>
+          </form> 
         </>
       );
     }
