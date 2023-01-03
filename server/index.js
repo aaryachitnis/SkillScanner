@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import UserDetailsSchema from './accountDetails.js';
+import bcrypt from 'bcrypt';
+
 
 const app = express();
 
@@ -16,7 +18,7 @@ app.use(express.json())
 const PORT = 3001;
 app.listen(PORT, () => { });
 
-// DATABASE
+// DATABASE:
 // establishing a connection between database and backend
 const CONNECTION_URL = 'mongodb+srv://aaryachitnis:phoenix14@cluster0.yphr5ln.mongodb.net/?retryWrites=true&w=majority'; 
 // removes the deprecation warning
@@ -25,7 +27,7 @@ mongoose.set('strictQuery', true);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
 const User = mongoose.model('UserInfo');
 
-//REGISTRATION
+// VALIDATION FUNCTIONS:
 
 function hasUppercase(password) {
     return /[A-Z]/.test(password);
@@ -65,16 +67,26 @@ function emailValidation (email){
     }
 }
 
-// adds email and password to the database in UserInfo
+// SIGNUP:
 app.post("/register", async(req, res) => {
     const {email, password, confirmPassword } = req.body;
+    // checking if the user already exists 
+    const existingUser = await User.findOne({email});
+        if (existingUser){
+            return res.send ({error: "User exists"})
+        }
+    // calling vaidation functions to check if email and password are valid 
     if ((passwordValidation(password, confirmPassword) == true) && (emailValidation (email) ==true )){
+        // encrypting the password 
+        const encryptedPassword = await bcrypt.hash (password, 8);
+        // saving the email and the encrypted password to the database
         try{
             await User.create({
-                email, password,
+                email, 
+                password: encryptedPassword,
             }); 
             res.send({status:"valid"})
-        }catch(error) {
+        }   catch(error) {
             res.send({status:"error"})
         }
     } else {
@@ -82,5 +94,12 @@ app.post("/register", async(req, res) => {
     }
 });
 
+// Login 
+app.post("/login", async(req, res) => {
+    console.log ("in login")
+    const {email, password,  } = req.body;
+    console.log (email, password)
+    userExists(email)
+}); 
 
-// subroutine to check if an email already exists in the database - also used for login 
+
