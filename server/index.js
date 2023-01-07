@@ -94,12 +94,23 @@ app.post("/register", async(req, res) => {
     }
 });
 
-// Login 
+// LOGIN:
 app.post("/login", async(req, res) => {
-    console.log ("in login")
     const {email, password,  } = req.body;
-    console.log (email, password)
-    userExists(email)
+
+    // checking if the user exists
+    const user = await User.findOne({email});
+    if (!user){
+        return res.send ({error: "User not found"})
+    }
+
+    // checking if password matches with the email 
+    const isMatch = await bcrypt.compare(password, user.password) 
+    if (!isMatch){
+        return res.send ({error: "Wrong password"})
+    }else {
+        return res.send ({status: "Login successful"})
+    }
 }); 
 
 
