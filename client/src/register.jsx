@@ -1,6 +1,4 @@
 import React  from 'react';
-import { Routes, Route } from "react-router-dom";
-import Homepage from './homepage'
 
 export default class Register extends React.Component{
   constructor(props){
@@ -36,7 +34,7 @@ export default class Register extends React.Component{
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        routing(data)
       })
     } 
     catch (err){
@@ -47,6 +45,7 @@ export default class Register extends React.Component{
     render(){
       return(
         <>
+        <h3>Create an account</h3>
           <h4>Password requirements:</h4>
           <ul>
             <li>Minimum 10 characters</li>
@@ -84,5 +83,8 @@ export default class Register extends React.Component{
     }
 }
 
-
+function routing (validOrNot){
+  console.log (validOrNot)
+  
+}
 

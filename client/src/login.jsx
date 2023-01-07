@@ -33,7 +33,7 @@ class Login extends React.Component{
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        routing(data)
       })
     } 
     catch (err){
@@ -47,16 +47,16 @@ class Login extends React.Component{
           <h3>Login</h3>
           <form onSubmit={this.handleSubmit}>
             <p> 
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email </label>
             <input type="email" placeholder="Enter email " id="email" name="email" 
               onChange={(e) => this.setState({ email: e.target.value })}
-              />
+            />
             </p>
             <p>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password </label>
             <input type="password" placeholder="Enter password" id="password" name="password" 
               onChange={(e) => this.setState({ password: e.target.value })}
-              />
+            />
             </p>
             <button>Log In</button>
           </form>
@@ -64,5 +64,8 @@ class Login extends React.Component{
       );
     }
   }
-  
 export default Login;
+
+function routing (data){
+  console.log (data)
+}
