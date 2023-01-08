@@ -90,9 +90,12 @@ app.post("/register", async(req, res) => {
             res.send({status:"error"})
         }
     } else {
-        return res.json({error: "invalid"});
+        return res.json("invalid");
+        // return res.json({error: "invalid"});
+
     }
 });
+
 
 // LOGIN:
 app.post("/login", async(req, res) => {

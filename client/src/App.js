@@ -15,7 +15,7 @@ export default function App() {
               <Route exact path='/' element={<LandingDisplay/>}/>
               <Route exact path='/login' element={<Login/>}/>
               <Route exact path='/register' element={<Register/>}/>
-              <Route exact path='/profile-setup' element={<ProfileSetup/>}/>
+              <Route exact path='/profilesetup' element={<ProfileSetup/>}/>
               <Route exact path='/homepage' element={<Homepage/>}/>
           </Routes>
         </>
