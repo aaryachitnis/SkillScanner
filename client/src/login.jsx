@@ -33,7 +33,7 @@ class Login extends React.Component{
       })
       .then((res) => res.json())
       .then((data) => {
-        routing(data)
+        console.log(data);
       })
     } 
     catch (err){
@@ -63,9 +63,10 @@ class Login extends React.Component{
         </>
       );
     }
+    // function yeah(){
+    //   console.log("yeah")
+    // }
   }
 export default Login;
 
-function routing (data){
-  console.log (data)
-}
+
