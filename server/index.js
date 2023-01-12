@@ -85,14 +85,12 @@ app.post("/register", async(req, res) => {
                 email, 
                 password: encryptedPassword,
             }); 
-            res.send({status:"valid"})
+            return res.json("valid")
         }   catch(error) {
-            res.send({status:"error"})
+            return res.json("error")
         }
     } else {
         return res.json("invalid");
-        // return res.json({error: "invalid"});
-
     }
 });
 
@@ -104,15 +102,15 @@ app.post("/login", async(req, res) => {
     // checking if the user exists
     const user = await User.findOne({email});
     if (!user){
-        return res.send ({error: "User not found"})
+        return res.json ("User not found")
     }
-
+    
     // checking if password matches with the email 
     const isMatch = await bcrypt.compare(password, user.password) 
     if (!isMatch){
-        return res.send ({error: "Wrong password"})
+        return res.json ("Wrong password")
     }else {
-        return res.send ({status: "Login successful"})
+        return res.json ("Login successful")
     }
 }); 
 

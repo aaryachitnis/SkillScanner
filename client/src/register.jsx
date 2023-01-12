@@ -1,14 +1,10 @@
 import React  from 'react';
-import routing from './routing';
+//import routing from './routing';
 import {useNavigate} from "react-router-dom";
-import ProfileSetup from './profileSetup';
+// import ProfileSetup from './profileSetup';
 
-//const navigate = useNavigate();
 
-let validOrNot 
-
-// export default class Register extends React.Component{
-  export default function Register() {
+export default function Register() {
   let navigate = useNavigate();
 
   function handleSubmit(event) {
@@ -38,8 +34,12 @@ let validOrNot
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        validOrNot = data
+        if (data === "valid"){
+          alert("Account created!")
+          setTimeout(() => {  navigate("/profileSetup"); }, 1000);
+        } else if (data === "invalid"){
+          alert("Invalid email or password. Please try again")
+        }
       })
     } 
     catch (err){
@@ -60,20 +60,29 @@ let validOrNot
       </ul>
 
       <form onSubmit={handleSubmit}>
+        <div> 
         <label htmlFor="email">Email  </label>
-        <input type="email" placeholder="Enter email" name="email" required />
         <br/>
+        <input size="50" type="email" placeholder="Enter email" name="email" required />
+        </div>
         <br/>
+        <div>
         <label htmlFor="password">Password  </label>
-        <input type="password" placeholder="Enter password" name="password" required/>
         <br/>
+        <input size="50" type="password" placeholder="Enter password" name="password" required/>
+        </div>
         <br/>
+        <div>
         <label htmlFor="confirmPassword">Confirm password  </label>
-        <input type="password" placeholder="Re-enter password" name="confirmPassword" required/>
         <br/>
+        <input size="50" type="password" placeholder="Re-enter password" name="confirmPassword" required/>
+        </div>        
         <br/>
         <button>Register</button>
       </form> 
     </>
   );
 }
+
+
+
