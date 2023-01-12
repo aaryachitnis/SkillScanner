@@ -1,9 +1,8 @@
 import React from 'react';
-import styles from './mystyle.module.css'; 
+import { Routes, Route } from "react-router-dom";
 import  LandingDisplay  from "./LandingDisplay";
 import  Register  from './register';
 import Login from './login'
-import { Routes, Route } from "react-router-dom";
 import Homepage from './homepage';
 import ProfileSetup from './profileSetup';
 

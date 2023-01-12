@@ -1,22 +1,20 @@
 import React  from 'react';
+import {useNavigate} from "react-router-dom";
+import styles from './mystyle.module.css'; 
 
-class Login extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      // attributes of the Register class 
-      email: "",
-      password: "",
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  };
-  handleSubmit(event) {
-    // so that the form doesn't automatically refresh
-    event.preventDefault();
-    // stores the value of the state in variables email and password
-    const { email, password} = this.state;
-    // shows the state that is captured in console. Only for testing purposes 
-    console.log ( email, password);
+
+export default function Login (){
+  let navigate = useNavigate();
+
+  function handleSubmit(event) {
+    event.preventDefault(); // stops data being sent to the server immediately
+
+    // storing the data entered by users in variables:
+    let formData = new FormData(event.currentTarget);
+    let email = formData.get("email");
+    let password = formData.get("password");
+
+    console.log ( email, password); // for testing purposes
 
     try{
       const response =  fetch ('http://localhost:3001/login', {
@@ -34,39 +32,42 @@ class Login extends React.Component{
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data === "Login successful"){
+          alert("Login successful!")
+          setTimeout(() => {  navigate("/homepage"); }, 1500); //routes to homepage after 1.5 seconds
+        } else if (data === "User not found"){
+          alert("Invalid email. Please try again")
+        } else if (data === "Wrong password"){
+          alert("Invalid password. Please try again")
+        }
       })
     } 
     catch (err){
       console.log(err);
     }
   }
-
-  render(){
     return(
         <>
+        <div className={styles.landing}>
           <h3>Login</h3>
-          <form onSubmit={this.handleSubmit}>
-            <p> 
+          <form onSubmit={handleSubmit}>
+            <div> 
             <label htmlFor="email">Email </label>
-            <input type="email" placeholder="Enter email " id="email" name="email" 
-              onChange={(e) => this.setState({ email: e.target.value })}
-            />
-            </p>
-            <p>
+            <br/>
+            <input size="50" type="email" placeholder="Enter email " name="email"/>
+            </div>
+            <br/>
+            <div>
             <label htmlFor="password">Password </label>
-            <input type="password" placeholder="Enter password" id="password" name="password" 
-              onChange={(e) => this.setState({ password: e.target.value })}
-            />
-            </p>
+            <br/>
+            <input size="50" type="password" placeholder="Enter password" name="password" />
+            </div>
+            <br/>
             <button>Log In</button>
           </form>
+        </div>
         </>
       );
-    }
-    // function yeah(){
-    //   console.log("yeah")
-    // }
-  }
-export default Login;
+}
 
 
