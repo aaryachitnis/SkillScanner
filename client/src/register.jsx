@@ -1,14 +1,11 @@
 import React  from 'react';
-//import routing from './routing';
 import {useNavigate} from "react-router-dom";
-// import ProfileSetup from './profileSetup';
-
 
 export default function Register() {
   let navigate = useNavigate();
 
   function handleSubmit(event) {
-    event.preventDefault(); // stops the page from refreshing each time the form is submitted
+    event.preventDefault(); // stops the data from being sent to the server
 
     // storing the data entered by users in variables:
     let formData = new FormData(event.currentTarget);
@@ -34,11 +31,13 @@ export default function Register() {
       })
       .then((res) => res.json())
       .then((data) => {
-        if (data === "valid"){
-          alert("Account created!")
-          setTimeout(() => {  navigate("/profileSetup"); }, 1000);
-        } else if (data === "invalid"){
-          alert("Invalid email or password. Please try again")
+        if (data === "valid"){ // if account details are valid
+          alert("Account created!") // send an alert on the browser saying the account was created
+          setTimeout(() => {  navigate("/profilesetup"); }, 1500); // waits 1.5 seconds before redirecting to profile setup page
+        } else if (data === "invalid"){ // if account details are invalid
+          alert("Invalid email or password. Please try again") // send an alert on the browser to display the error
+        } else if (data === "User exists"){ // if the email already exists in the database
+          alert ("An account associated with this email already exists. Proceed to login") // send an alert asking the user to login 
         }
       })
     } 
