@@ -1,7 +1,5 @@
 import React  from 'react';
 import {useNavigate} from "react-router-dom";
-import styles from './mystyle.module.css'; 
-
 
 export default function Login (){
   let navigate = useNavigate();
@@ -32,13 +30,13 @@ export default function Login (){
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data === "Login successful"){
-          alert("Login successful!")
+        if (data === "Login successful"){ // if email and password are valid
+          alert("Login successful!") // send an alert saying login was sucessful 
           setTimeout(() => {  navigate("/homepage"); }, 1500); //routes to homepage after 1.5 seconds
-        } else if (data === "User not found"){
-          alert("Invalid email. Please try again")
+        } else if (data === "User not found"){ // if the email entered was not valid 
+          alert("Invalid email. Please try again.") // 
         } else if (data === "Wrong password"){
-          alert("Invalid password. Please try again")
+          alert("Invalid password. Please try again.")
         }
       })
     } 
@@ -48,19 +46,19 @@ export default function Login (){
   }
     return(
         <>
-        <div className={styles.landing}>
+        <div>
           <h3>Login</h3>
           <form onSubmit={handleSubmit}>
             <div> 
             <label htmlFor="email">Email </label>
             <br/>
-            <input size="50" type="email" placeholder="Enter email " name="email"/>
+            <input size="50" type="email" placeholder="Enter email " name="email" required/>
             </div>
             <br/>
             <div>
             <label htmlFor="password">Password </label>
             <br/>
-            <input size="50" type="password" placeholder="Enter password" name="password" />
+            <input size="50" type="password" placeholder="Enter password" name="password" required/>
             </div>
             <br/>
             <button>Log In</button>

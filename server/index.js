@@ -67,13 +67,14 @@ function emailValidation (email){
     }
 }
 
+
 // SIGNUP:
 app.post("/register", async(req, res) => {
     const {email, password, confirmPassword } = req.body;
     // checking if the user already exists 
     const existingUser = await User.findOne({email});
         if (existingUser){
-            return res.send ({error: "User exists"})
+            return res.json ("User exists")
         }
     // calling vaidation functions to check if email and password are valid 
     if ((passwordValidation(password, confirmPassword) == true) && (emailValidation (email) ==true )){
@@ -99,8 +100,9 @@ app.post("/register", async(req, res) => {
 app.post("/login", async(req, res) => {
     const {email, password,  } = req.body;
 
-    // checking if the user exists
     const user = await User.findOne({email});
+
+    // checking if the user exists
     if (!user){
         return res.json ("User not found")
     }
