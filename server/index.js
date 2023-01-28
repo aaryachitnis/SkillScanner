@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+import mongoose, { trusted } from 'mongoose';
 import cors from 'cors';
 import UserDetailsSchema from './accountDetails.js';
 import bcrypt from 'bcrypt';
@@ -29,17 +29,30 @@ const User = mongoose.model('UserInfo');
 
 // VALIDATION FUNCTIONS:
 
-function hasUppercase(password) {
-    return /[A-Z]/.test(password);
+// checks if string contains an upper case letter
+function hasUppercase(string) {
+    return /[A-Z]/.test(string);
 }
 
-function hasNumber(password) {
-    return /\d/.test(password);
+// checks if string contains a number
+function hasNumber(string) {
+    return /\d/.test(string);
 }
 
-function hasSpecialChar (password) {
+// checks if string contains special characters
+function hasSpecialChar (string) {
     var specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    return (specialChars.test(password) );
+    return (specialChars.test(string) );
+}
+
+// checks if string contains space
+function checksSpace (string) {   
+    return ( /\s/g.test(string) );
+}
+
+// checks if string contains only numbers 
+function hasOnlyNumbers(number){
+    return (/^\d+$/.test(number));
 }
 
 // password validation
@@ -67,6 +80,37 @@ function emailValidation (email){
     }
 }
 
+// full name validation
+function fullNameValidation (fullName){
+    if ((checksSpace(fullName)==true) 
+    && (hasSpecialChar(fullName)==false) 
+    && (hasNumber(fullName)==false)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+// phone number validation
+function phoneNumValidation(){
+    const number = ''
+    if ((hasOnlyNumbers(number)== true) // if the number only contains number
+        && (number.charAt(0) == '0') // if the number starts with a 0
+        && number.length == 11) { // if number is exactly 11 characters long
+        console.log("true")  
+    } else {
+        console.log ("false")
+    }
+}
+
+// headlline validation
+function headlineValidation(headline){
+    if ( (headline.length >= 10) && (headline.length <= 100)){
+        return true
+    } else {
+        return false 
+    }
+}
 
 // SIGNUP:
 app.post("/register", async(req, res) => {
@@ -115,5 +159,13 @@ app.post("/login", async(req, res) => {
         return res.json ("Login successful")
     }
 }); 
+
+// PROFILE SETUP:
+app.post("/profilesetup", async(req, res) => {
+    const {fullName,profession,location,expYear,email,phoneNum,headlines,services_products,experience,} = req.body;
+
+    
+}); 
+
 
 
