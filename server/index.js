@@ -5,7 +5,6 @@ import cors from 'cors';
 import UserDetailsSchema from './accountDetails.js';
 import bcrypt from 'bcrypt';
 
-
 const app = express();
 
 //general set up 
@@ -122,8 +121,9 @@ app.post("/register", async(req, res) => {
         }
     // calling vaidation functions to check if email and password are valid 
     if ((passwordValidation(password, confirmPassword) == true) && (emailValidation (email) ==true )){
-        // encrypting the password 
-        const encryptedPassword = await bcrypt.hash (password, 8);
+
+        const encryptedPassword = await bcrypt.hash (password, 8); // encrypting the password 
+
         // saving the email and the encrypted password to the database
         try{
             await User.create({
@@ -161,11 +161,7 @@ app.post("/login", async(req, res) => {
 }); 
 
 // PROFILE SETUP:
-app.post("/profilesetup", async(req, res) => {
-    const {fullName,profession,location,expYear,email,phoneNum,headlines,services_products,experience,} = req.body;
 
-    
-}); 
 
 
 

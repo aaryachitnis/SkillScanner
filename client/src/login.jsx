@@ -24,7 +24,7 @@ export default function Login (){
           "Accept-Control-Allow-Origin":"*",
         },
         body: JSON.stringify({
-          email, password,
+          email, password, //sends email and passwor to the server
         }),
       })
       .then((res) => res.json())
