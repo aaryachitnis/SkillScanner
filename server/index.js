@@ -2,9 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose, { trusted } from 'mongoose';
 import cors from 'cors';
-import UserDetailsSchema from './accountDetails.js';
+import databaseSchema from './accountDetails.js';
 import bcrypt from 'bcrypt';
-
+import jwt from 'jsonwebtoken';
 const app = express();
 
 //general set up 
@@ -91,14 +91,13 @@ function fullNameValidation (fullName){
 }
 
 // phone number validation
-function phoneNumValidation(){
-    const number = ''
+function phoneNumValidation(number){
     if ((hasOnlyNumbers(number)== true) // if the number only contains number
         && (number.charAt(0) == '0') // if the number starts with a 0
         && number.length == 11) { // if number is exactly 11 characters long
-        console.log("true")  
+            return true  
     } else {
-        console.log ("false")
+        return false
     }
 }
 
@@ -130,14 +129,16 @@ app.post("/register", async(req, res) => {
                 email, 
                 password: encryptedPassword,
             }); 
-            return res.json("valid")
+            const user = await User.findOne({email}); // storing the user in a variable 
+            const token = jwt.sign ({ email: user.email }, 'skillscanner123') // signing the email using jwt 
+            return res.json({ status: "valid", token: token}) //sending the validation message and token to React 
         }   catch(error) {
             return res.json("error")
         }
-    } else {
+    } else {    
         return res.json("invalid");
     }
-});
+});         
 
 
 // LOGIN:
@@ -161,6 +162,53 @@ app.post("/login", async(req, res) => {
 }); 
 
 // PROFILE SETUP:
+app.post ("/profilesetup", async(req, res) => {
+    const {token, fullName, profession, location, expYear, email, phoneNum, headlines, services_products, experience,} = req.body
+    const user = jwt.decode(token) // decoding jwt token and storing it to the variable "user"
+    var response = "" // initialising response 
+
+    if (fullNameValidation(fullName) == false){ // if name entered isn't valid, update response 
+        response = response.concat("Please enter your full name. \n" ) 
+        var validName = false
+    } 
+
+    if (phoneNumValidation(phoneNum) == false){ // if phone number isn't valid, update response 
+        response = response.concat("Please enter a valid UK phone number. \n")
+        var validPhoneNum = false
+    } 
+
+    if (headlineValidation(headlines) == false){ // if headline isn't valid, update response 
+        response = response.concat("Headline must be between 30 and 100 characters. Please enter a valid headline.")
+        var validHeadline = false
+    }   
+
+    // if all validation checks are passed, save the data to the database
+    if ((validName != false) && (validPhoneNum != false) && (validHeadline != false)){  
+        try {
+            await User.updateOne ( // updates document 
+                { email: user.email}, // sets condition- where email field equals user.email 
+                { $set: { // updates the following fields with the data entered by user
+                    "profile.fullName" : fullName,
+                    "profile.profession" : profession,
+                    "profile.location": location,
+                    "profile.expYear": expYear,
+                    "profile.email": email,
+                    "profile.phoneNum": phoneNum,   
+                    "profile.headlines": headlines,
+                    "profile.servicesAndProducts": services_products,
+                    "profile.experience": experience,
+                }})
+            response = ("valid") // set response to valid if all data entered is valid and is sucessfully saved to the database 
+        }catch(error) {
+            return res.json("error")
+        }
+    }
+    console.log(response)
+    return res.json (response) // send the response to React
+})
+
+
+
 
 
 

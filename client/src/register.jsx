@@ -31,11 +31,16 @@ export default function Register() {
       })
       .then((res) => res.json())
       .then((data) => {
-        if (data === "valid"){ // if account details are valid
+        console.log(data)
+        
+        if (data.status === "valid"){ // if account details are valid
           alert("Account created!") // send an alert on the browser saying the account was created
+          window.localStorage.setItem ("token", data.token) // saves jwt token to browser's local storage
           setTimeout(() => {  navigate("/profilesetup"); }, 1500); // waits 1.5 seconds before redirecting to profile setup page
+
         } else if (data === "invalid"){ // if account details are invalid
           alert("Invalid email or password. Please try again") // send an alert on the browser to display the error
+
         } else if (data === "User exists"){ // if the email already exists in the database
           alert ("An account associated with this email already exists. Proceed to login") // send an alert asking the user to login 
         }
