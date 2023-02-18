@@ -1,0 +1,78 @@
+/* Styling for the search bar */
+.searchInputs {
+    margin-top: 10px;
+    display: flex;
+}
+
+/* Styling for the input bar (search bar) */
+.search input {
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 18px;
+    padding: 5px;
+    height: 30px;
+    width: 300px;
+}
+
+/* Styling for the search icon */
+.searchIcon {
+    height: 40px;
+    width: 50px;
+    background-color: white;
+    display: grid;
+    place-items: center;
+}
+
+input:focus{
+    outline: none;
+}
+
+.searchIcon svg {
+    font-size: 35px;
+}
+
+/* /Styling for box with the list of professions */
+.dataResult {
+    margin-top: 5px;
+    padding: 15px;
+    width: 330px;
+    height: 300px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* Allows user to scroll to see all the items */
+.dataResult::-webkit-scrollbar {
+    display: none;
+}
+
+/* Styling for the inidividual items in the list of professions */
+.dataResult .dataItem {
+    width: 100%;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.dataItem p {
+    margin-left: 5px;
+}
+  
+/* The profession on which the user is hovering is displayed with a grey background */
+p:hover {
+    background-color: lightgrey;
+    padding: 5px;
+}
+  
+#clearBtn {
+    cursor: pointer;
+}
+
+
+
