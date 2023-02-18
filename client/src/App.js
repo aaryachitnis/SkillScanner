@@ -1,11 +1,10 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import  LandingDisplay  from "./LandingDisplay";
-import  Register  from './register';
-import Login from './login'
-import Homepage from './homepage';
+import  Register  from './Auth/register';
+import Login from './Auth/login'
+import Homepage from './Homepage/homepage';
 import ProfileSetup from './profileSetup';
-
 
 export default function App() {
     return (
