@@ -1,7 +1,9 @@
 /* Styling for the search bar */
 .searchInputs {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
+    border: 1px;
+    border-color: black;
 }
 
 /* Styling for the input bar (search bar) */
@@ -31,7 +33,11 @@ input:focus{
 }
 
 .searchIcon svg {
-    font-size: 35px;
+    background-color: white;
+    width: 50px;
+    font-size: 40px;
+    align-items: center;
+    margin-top: 0px;
 }
 
 /* /Styling for box with the list of professions */
@@ -39,7 +45,7 @@ input:focus{
     margin-top: 5px;
     padding: 15px;
     width: 330px;
-    height: 300px;
+    height: 200px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
@@ -64,15 +70,32 @@ input:focus{
     margin-left: 5px;
 }
   
-/* The profession on which the user is hovering is displayed with a grey background */
+/* The profession on which the user is hovering is displayed with a grey background*/
 p:hover {
     background-color: lightgrey;
     padding: 5px;
 }
   
-#clearBtn {
+.dropdown {
+    background-color: white;
+    width: 354px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.dropdown:empty {
+    border: none;
+}
+  
+.dropdown-row {
     cursor: pointer;
+    text-align: start;
+    margin: 2px 0;
 }
 
-
+input {
+  width: 300px;
+  border: 1px;
+  border-color: black;
+}
 
