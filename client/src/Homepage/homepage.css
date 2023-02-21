@@ -70,12 +70,6 @@ input:focus{
     margin-left: 5px;
 }
   
-/* The profession on which the user is hovering is displayed with a grey background*/
-p:hover {
-    background-color: lightgrey;
-    padding: 5px;
-}
-  
 .dropdown {
     background-color: white;
     width: 354px;
@@ -91,6 +85,12 @@ p:hover {
     cursor: pointer;
     text-align: start;
     margin: 2px 0;
+}
+
+/* The profession on which the user is hovering is displayed with a grey background*/
+.dropdown-row:hover {
+    background-color: lightgrey;
+    padding: 5px;
 }
 
 input {
