@@ -15,11 +15,11 @@ export default function ProfileSetup() {
     let expYear = formData.get("expYear");
     let email = formData.get("email");
     let phoneNum = formData.get("phoneNum");
-    let headlines = formData.get("headline");
+    let headline = formData.get("headline");
     let services_products = formData.get("services/products");
     let experience = formData.get("experience");
 
-    console.log (fullName,profession,location,expYear,email,phoneNum,headlines,services_products,experience); // for testing purposes
+    console.log (fullName,profession,location,expYear,email,phoneNum,headline,services_products,experience); // for testing purposes
     
     try{
       const response =  fetch ('http://localhost:3001/profilesetup', {
@@ -33,7 +33,7 @@ export default function ProfileSetup() {
         body: JSON.stringify({
           token: window.localStorage.getItem("token"), // sends the token to the server 
           // sends profile setup information to server
-          fullName, profession, location, expYear, email, phoneNum, headlines, services_products, experience, 
+          fullName, profession, location, expYear, email, phoneNum, headline, services_products, experience, 
         }),
       })
       .then((res) => res.json())

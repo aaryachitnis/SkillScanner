@@ -163,7 +163,7 @@ app.post("/login", async(req, res) => {
 
 // PROFILE SETUP:
 app.post ("/profilesetup", async(req, res) => {
-    const {token, fullName, profession, location, expYear, email, phoneNum, headlines, services_products, experience,} = req.body
+    const {token, fullName, profession, location, expYear, email, phoneNum, headline, services_products, experience,} = req.body
     const user = jwt.decode(token) // decoding jwt token and storing it to the variable "user"
     var response = "" // initialising response 
 
@@ -177,7 +177,7 @@ app.post ("/profilesetup", async(req, res) => {
         var validPhoneNum = false
     } 
 
-    if (headlineValidation(headlines) == false){ // if headline isn't valid, update response 
+    if (headlineValidation(headline) == false){ // if headline isn't valid, update response 
         response = response.concat("Headline must be between 30 and 100 characters. Please enter a valid headline.")
         var validHeadline = false
     }   
@@ -185,8 +185,8 @@ app.post ("/profilesetup", async(req, res) => {
     // if all validation checks are passed, save the data to the database
     if ((validName != false) && (validPhoneNum != false) && (validHeadline != false)){  
         try {
-            await User.updateOne ( // updates document 
-                { email: user.email}, // sets condition- where email field equals user.email 
+            User.updateOne ( // updates document 
+                { email: user.email }, // sets condition- where email field equals user.email 
                 { $set: { // updates the following fields with the data entered by user
                     "profile.fullName" : fullName,
                     "profile.profession" : profession,
@@ -194,7 +194,7 @@ app.post ("/profilesetup", async(req, res) => {
                     "profile.expYear": expYear,
                     "profile.email": email,
                     "profile.phoneNum": phoneNum,   
-                    "profile.headlines": headlines,
+                    "profile.headline": headline,
                     "profile.servicesAndProducts": services_products,
                     "profile.experience": experience,
                 }})
@@ -207,7 +207,11 @@ app.post ("/profilesetup", async(req, res) => {
     return res.json (response) // send the response to React
 })
 
+// RESULTS PAGE
+app.post("/resultspage", async(req, res) => {
+    const {search,} = req.body
 
+})
 
 
 
