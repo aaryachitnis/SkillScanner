@@ -5,7 +5,7 @@ import  Register  from './Auth/register';
 import Login from './Auth/login'
 import Homepage from './Homepage/homepage';
 import ProfileSetup from './profileSetup';
-import ResultsPage from './Homepage/resultsPage';
+import ResultsPage from './ResultsPage/resultsPage';
 
 export default function App() {
     return (
