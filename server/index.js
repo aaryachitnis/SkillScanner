@@ -128,6 +128,17 @@ app.post("/register", async(req, res) => {
             await User.create({
                 email, 
                 password: encryptedPassword,
+                profile: {
+                    fullName: null,
+                    profession: null,
+                    location: null,
+                    expYear: null,
+                    email: null,
+                    phoneNum: null, 
+                    headlines: null,
+                    servicesAndProducts: null,
+                    experience: null,
+                }
             }); 
             const user = await User.findOne({email}); // storing the user in a variable 
             const token = jwt.sign ({ email: user.email }, 'skillscanner123') // signing the email using jwt 
@@ -163,7 +174,7 @@ app.post("/login", async(req, res) => {
 
 // PROFILE SETUP:
 app.post ("/profilesetup", async(req, res) => {
-    const {token, fullName, profession, location, expYear, email, phoneNum, headline, services_products, experience,} = req.body
+    const {token, fullName, profession, location, expYear, email, phoneNum, headlines, services_products, experience,} = req.body
     const user = jwt.decode(token) // decoding jwt token and storing it to the variable "user"
     var response = "" // initialising response 
 
@@ -177,7 +188,7 @@ app.post ("/profilesetup", async(req, res) => {
         var validPhoneNum = false
     } 
 
-    if (headlineValidation(headline) == false){ // if headline isn't valid, update response 
+    if (headlineValidation(headlines) == false){ // if headline isn't valid, update response 
         response = response.concat("Headline must be between 30 and 100 characters. Please enter a valid headline.")
         var validHeadline = false
     }   
@@ -185,33 +196,31 @@ app.post ("/profilesetup", async(req, res) => {
     // if all validation checks are passed, save the data to the database
     if ((validName != false) && (validPhoneNum != false) && (validHeadline != false)){  
         try {
-            User.updateOne ( // updates document 
-                { email: user.email }, // sets condition- where email field equals user.email 
+            await User.updateOne ( // updates document 
+                { email: user.email}, // sets condition- where email field equals user.email 
                 { $set: { // updates the following fields with the data entered by user
-                    "profile.fullName" : fullName,
-                    "profile.profession" : profession,
-                    "profile.location": location,
-                    "profile.expYear": expYear,
-                    "profile.email": email,
-                    "profile.phoneNum": phoneNum,   
-                    "profile.headline": headline,
-                    "profile.servicesAndProducts": services_products,
-                    "profile.experience": experience,
+                    "profile.0.fullName" : fullName,
+                    "profile.0.profession" : profession,
+                    "profile.0.location": location,
+                    "profile.0.expYear": expYear,
+                    "profile.0.email": email,
+                    "profile.0.phoneNum": phoneNum,   
+                    "profile.0.headlines": headlines,
+                    "profile.0.servicesAndProducts": services_products,
+                    "profile.0.experience": experience,
                 }})
             response = ("valid") // set response to valid if all data entered is valid and is sucessfully saved to the database 
         }catch(error) {
-            return res.json("error")
+            return res.json(error)
         }
     }
     console.log(response)
     return res.json (response) // send the response to React
 })
 
-// RESULTS PAGE
-app.post("/resultspage", async(req, res) => {
-    const {search,} = req.body
 
-})
+
+
 
 
 

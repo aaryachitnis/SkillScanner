@@ -28,7 +28,7 @@ const UserDetailsSchema = new mongoose.Schema(
         },
         profile: [profileSchema], 
     },
-    {collection: "UserInfo",}
+    {collection: "UserInfo"},
 );
 
 const databaseSchema = mongoose.model('UserInfo' , UserDetailsSchema);
