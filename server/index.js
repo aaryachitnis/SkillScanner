@@ -214,9 +214,16 @@ app.post ("/profilesetup", async(req, res) => {
             return res.json(error)
         }
     }
-    console.log(response)
     return res.json (response) // send the response to React
 })
+
+
+// RESULTS PAGE
+app.get('/resultspage/:search', (req, res) => {
+    const search = req.params.search;
+    console.log(search)
+    // res.json(data);
+});
 
 
 

@@ -30,13 +30,16 @@ export default function SearchBar() {
     const lowercaseProfessions = professions.map(profession => profession.toLowerCase()); 
 
     if (lowercaseProfessions.includes(searchTerm.toLowerCase()) === true){ // if the value in the input field is a valid profession 
-      window.localStorage.setItem ("search", searchTerm) // stores searched profession in the local storage 
-      setTimeout(() => {  navigate("/resultspage"); }, 1000); // waits one second before redirecting to results page
+
+      // window.localStorage.setItem ("search", searchTerm) // stores searched profession in the local storage 
+
+      setTimeout(() => {  navigate("/resultspage/" + searchTerm); }, 1000); // waits one second before redirecting to results page
       console.log(searchTerm); // for testing purposes  
+
     } else { // if value in the input field is not a valid profession, alert the user
       alert("Invalid search") 
     }
-  };
+  }; 
 
   return (
     <div className="search-container">
