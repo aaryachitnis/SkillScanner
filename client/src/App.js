@@ -16,11 +16,12 @@ export default function App() {
               <Route exact path='/register' element={<Register/>}/>
               <Route exact path='/profilesetup' element={<ProfileSetup/>}/>
               <Route exact path='/homepage' element={<Homepage/>}/>
-              <Route exact path='/resultspage' element={<ResultsPage/>}/>
+              <Route exact path='/resultspage/:search' element={<ResultsPage/>}/>
           </Routes>
         </>
       );
 }
+
 
 
 
