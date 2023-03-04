@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose, { trusted } from 'mongoose';
+import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import databaseSchema from './accountDetails.js';
 import bcrypt from 'bcrypt';
@@ -205,7 +206,7 @@ app.post ("/profilesetup", async(req, res) => {
                     "profile.0.expYear": expYear,
                     "profile.0.email": email,
                     "profile.0.phoneNum": phoneNum,   
-                    "profile.0.headlines": headlines,
+                    "profile.0.headline": headlines,
                     "profile.0.servicesAndProducts": services_products,
                     "profile.0.experience": experience,
                 }})
@@ -220,9 +221,31 @@ app.post ("/profilesetup", async(req, res) => {
 
 // RESULTS PAGE
 app.get('/resultspage/:search', (req, res) => {
+
     const search = req.params.search;
     console.log(search)
-    // res.json(data);
+
+    const query = { "profile.profession": search };
+    const projection = { _id: 1, "profile.fullName": 1, "profile.expYear": 1, "profile.headline": 1 };
+    
+    User.find(query, projection, function(err, docs) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      try {
+        const result = docs.map(doc => ({
+            _id: doc._id,
+            fullName: doc.profile[0].fullName,
+            expYear: doc.profile[0].expYear,
+            headline: doc.profile[0].headline,
+          }));
+          console.log(result)
+      } catch (error){
+        console.log(error)
+      }
+    });
 });
 
 
