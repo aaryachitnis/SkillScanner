@@ -6,12 +6,16 @@ import './resultsPageStyling.css';
 const Profile = (props)=> {
     return(
         <div className="profile-container">
+            
             {/* Displays the name of the user as a link: */}
             <Link to = '/userprofile' >{props.fullName}</Link> 
-            {/* Displays headline: */}
-            <h4>{props.headline}</h4>
+
             {/* Displays years of experience */}
             <h4>{props.expYear}</h4>
+
+            {/* Displays headline: */}
+            <h4>{props.headline}</h4>
+
         </div>
     )
 }

@@ -226,7 +226,7 @@ app.get('/resultspage/:search', (req, res) => {
     console.log(search)
 
     const query = { "profile.profession": search };
-    const projection = { _id: 1, "profile.fullName": 1, "profile.expYear": 1, "profile.headline": 1 };
+    const projection = { _id: 0, "profile.fullName": 1, "profile.expYear": 1, "profile.headline": 1 };
     
     User.find(query, projection, function(err, docs) {
       if (err) {
@@ -241,9 +241,9 @@ app.get('/resultspage/:search', (req, res) => {
             expYear: doc.profile[0].expYear,
             headline: doc.profile[0].headline,
           }));
-          console.log(result)
+          return res.json(result)
       } catch (error){
-        console.log(error)
+          return res.json(result)
       }
     });
 });
