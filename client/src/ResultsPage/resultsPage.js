@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from 'react';
-import ProfileDisplayList from "./profileDisplayList";
 import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
 import { useCallback } from "react";
+import ProfileDisplayList from "./profileDisplayList";
+
 
 export default function ResultsPage () {
   const { search } = useParams(); // retrieves the searched profession from URL 
@@ -22,7 +23,7 @@ export default function ResultsPage () {
     }
   }, [search]);
 
-  // Call the fetchData function only once when the component is rendered
+  // Calls the fetchData function only once when the component is rendered
   useEffect(() => {
     fetchData();
   }, [fetchData]);

@@ -8,7 +8,7 @@ const Profile = (props)=> {
         <div className="profile-container">
             
             {/* Displays the name of the user as a link: */}
-            <Link to = '/userprofile' >{props.fullName}</Link> 
+            <Link to = {`/userprofile/${props.id}`} >{props.fullName}</Link> 
 
             {/* Displays years of experience */}
             <h4>{props.expYear}</h4>
