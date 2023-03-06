@@ -3,7 +3,6 @@ import styles from './mystyle.module.css';
 import {useNavigate} from "react-router-dom"
   
 
-
 const LandingDisplay = () => {
     const navigate = useNavigate();
     return (

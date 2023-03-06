@@ -6,6 +6,7 @@ import Login from './Auth/login'
 import Homepage from './Homepage/homepage';
 import ProfileSetup from './profileSetup';
 import ResultsPage from './ResultsPage/resultsPage';
+import UserProfilePage from './UserProfilePage/userProfilePage'
 
 export default function App() {
     return (
@@ -17,6 +18,7 @@ export default function App() {
               <Route exact path='/profilesetup' element={<ProfileSetup/>}/>
               <Route exact path='/homepage' element={<Homepage/>}/>
               <Route exact path='/resultspage/:search' element={<ResultsPage/>}/>
+              <Route exact path='/userprofile/:userid' element={<UserProfilePage/>}/>
           </Routes>
         </>
       );

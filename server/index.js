@@ -223,36 +223,71 @@ app.post ("/profilesetup", async(req, res) => {
 app.get('/resultspage/:search', (req, res) => {
 
     const search = req.params.search;
-    console.log(search)
 
-    const query = { "profile.profession": search };
-    const projection = { _id: 0, "profile.fullName": 1, "profile.expYear": 1, "profile.headline": 1 };
+    const query = { "profile.profession": search }; // defining the query 
+
+    // defining which fields need to be returned:  
+    const projection = { _id: 1, "profile.fullName": 1, "profile.expYear": 1, "profile.headline": 1 }; 
     
+    // using the find() method and passing the query and projection as parameters
+    // this returns a document which holding an array of objects containing 'id' and 'profile'
+    // 'profile' holds an object containing 'fullName', 'expYear' and 'headline' 
     User.find(query, projection, function(err, docs) {
       if (err) {
         console.error(err);
-        return;
       }
 
       try {
+        // creating a 'results' array which maps 'docs' 
+        // 'results' array is in the format that React is expecting. it is an array of objects.
         const result = docs.map(doc => ({
-            _id: doc._id,
+            id: doc._id ,
             fullName: doc.profile[0].fullName,
             expYear: doc.profile[0].expYear,
             headline: doc.profile[0].headline,
           }));
-          return res.json(result)
+          return res.json(result) // returns the 'results' array
       } catch (error){
-          return res.json(result)
+          return res.json(error) // returns errors 
       }
     });
 });
 
+// USER PROFILE PAGE 
+app.get('/userprofile/:userid', (req, res) => {
+    const userid = req.params.userid; // retrieve the user ID 
 
+    const query = { "_id": userid }; // defining the query 
+    const projection = {_id: 0, "profile.fullName": 1, "profile.profession": 1, "profile.location": 1, 
+                        "profile.expYear": 1,"profile.email": 1, "profile.phoneNum": 1, 
+                        "profile.headline": 1,"profile.servicesAndProducts": 1,"profile.experience": 1,
+    }; 
 
+    User.find(query, projection, function(err, docs) {
+        if (err) {
+          console.error(err);
+          return;
+        }
 
-
-
-
+        try {
+            // creating a 'results' array which maps 'docs' 
+            // 'results' array is in the format that React is expecting. it is an array of objects.
+            const result = docs.map(doc => ({
+                fullName: doc.profile[0].fullName,
+                profession: doc.profile[0].profession,
+                location: doc.profile[0].location,
+                expYear: doc.profile[0].expYear,
+                email: doc.profile[0].email,
+                phoneNum: doc.profile[0].phoneNum,
+                headline: doc.profile[0].headline,
+                servicesAndProducts: doc.profile[0].servicesAndProducts,
+                experience: doc.profile[0].experience,
+              }));
+              return res.json (result) // returns the 'results' array
+          } catch (error){
+              return res.json (error) // returns errors 
+          }
+    })
+});
 
 

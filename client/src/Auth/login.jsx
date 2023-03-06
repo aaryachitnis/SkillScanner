@@ -51,7 +51,8 @@ export default function Login (){
           <form onSubmit={handleSubmit}>
             <div> 
             <label htmlFor="email">Email </label>
-            <br/>
+            <br/> 
+            {/*  */}
             <input size="50" type="email" placeholder="Enter email " name="email" required/>
             </div>
             <br/>
