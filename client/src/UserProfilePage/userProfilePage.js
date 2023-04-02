@@ -41,6 +41,10 @@ export default function UserProfilePage(){
                 experience = {p.experience} 
             />  
         )}
+        <button> Shortlist </button> <br/>
+        <button> Leave a rating </button> <br/>
+        <button> Leave a review </button> <br/>
+        <button> Chat </button>
         </>
     )  
 }

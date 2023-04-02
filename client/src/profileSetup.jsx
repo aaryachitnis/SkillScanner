@@ -71,6 +71,8 @@ export default function ProfileSetup() {
                     <option value="Actor"> Actor </option>
                     <option value="Architect"> Architect </option>
                     <option value="Artist"> Artist </option>
+                    <option value="Baker"> Gardener </option>
+                    <option value="Barber"> Gardener </option>
                     <option value="Builder"> Builder </option>
                     <option value="Carpenter"> Carpenter </option>
                     <option value="Chef"> Chef </option>
@@ -79,8 +81,10 @@ export default function ProfileSetup() {
                     <option value="Doctor"> Doctor </option>
                     <option value="Eyelash technician"> Eyelash technician </option>
                     <option value="Electrician"> Electrician </option>
+                    <option value="Event planner"> Gardener </option>
                     <option value="Filmmaker"> Filmmaker </option>
                     <option value="Gardener"> Gardener </option>
+                    <option value="Gardener"> Graphic designer </option>
                     <option value="Hair stylist"> Hair stylist </option>
                     <option value="Housekeeper"> Housekeeper </option>
                     <option value="Interior designer"> Interior designer </option>
@@ -92,6 +96,7 @@ export default function ProfileSetup() {
                     <option value="Nutritionist"> Nutritionist </option>
                     <option value="Nurse"> Nurse </option>
                     <option value="Painter"> Painter </option>
+                    <option value="Personal trainer"> Gardener </option>
                     <option value="Photographer"> Photographer </option>
                     <option value="Physician"> Physician </option>
                     <option value="Plumber"> Plumber </option>

@@ -184,6 +184,11 @@ app.post ("/profilesetup", async(req, res) => {
         var validName = false
     } 
 
+    if (emailValidation(email) == false){
+        response = response.concat("Please enter a valid email \n")
+        var validEmail = false
+    }
+
     if (phoneNumValidation(phoneNum) == false){ // if phone number isn't valid, update response 
         response = response.concat("Please enter a valid UK phone number. \n")
         var validPhoneNum = false
@@ -195,7 +200,7 @@ app.post ("/profilesetup", async(req, res) => {
     }   
 
     // if all validation checks are passed, save the data to the database
-    if ((validName != false) && (validPhoneNum != false) && (validHeadline != false)){  
+    if ((validName != false) && (validPhoneNum != false) && (validEmail != false) && (validHeadline != false)){  
         try {
             await User.updateOne ( // updates document 
                 { email: user.email}, // sets condition- where email field equals user.email 

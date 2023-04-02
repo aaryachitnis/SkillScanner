@@ -31,7 +31,7 @@ export default function ResultsPage () {
   return (
     <>
       <h2> You searched for: {search} </h2>
-      <ProfileDisplayList profiles = {profilesList}/>
+      {profilesList && profilesList.length > 0 ? <ProfileDisplayList profiles={profilesList}/> : <p>No results found.</p>}
     </>
   )
 }

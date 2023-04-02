@@ -7,10 +7,12 @@ import Homepage from './Homepage/homepage';
 import ProfileSetup from './profileSetup';
 import ResultsPage from './ResultsPage/resultsPage';
 import UserProfilePage from './UserProfilePage/userProfilePage'
+import Navbar from './navbar';
 
 export default function App() {
     return (
         <>
+        <Navbar/>
           <Routes>
               <Route exact path='/' element={<LandingDisplay/>}/>
               <Route exact path='/login' element={<Login/>}/>
@@ -23,6 +25,7 @@ export default function App() {
         </>
       );
 }
+
 
 
 
