@@ -1,5 +1,7 @@
 import React  from 'react';
 import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 export default function Login (){
   let navigate = useNavigate();
@@ -64,6 +66,7 @@ export default function Login (){
             <br/>
             <button>Log In</button>
           </form>
+          <p> No account? <Link to = {`/register`} > Create an account here!</Link></p>
         </div>
         </>
       );
